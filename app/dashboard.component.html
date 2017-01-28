@@ -1,0 +1,15 @@
+<div class="container-fluid content">
+    <div class="row parallax-chart">
+        <div class="col-md-4" *ngFor="let chart of charts" [class.selected]="chart === selectedChart" (click)="onSelect(chart)">
+            <div class="tile">
+                <div class="tiletitle">{{chart.chartName}}</div>
+                <span class="glyphicon glyphicon-{{chart.img}}"></span>
+                <div class="tileinfo">Autor: {{chart.autor}} Datum: {{chart.createDate | date}}</div>
+                <div class="tiledescription">Beschreibung: {{chart.description}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row detail-section">
+        <chart-detail [chart]="selectedChart"></chart-detail>
+    </div>
+</div>

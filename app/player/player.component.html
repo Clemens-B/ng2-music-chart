@@ -1,0 +1,18 @@
+<div *ngIf="currentTime" class="container-fluid player">
+
+    <span class="step glyphicon glyphicon-step-backward"></span>
+    <a class="player-link" (click)="togglePlay()">
+        <span *ngIf="isPlaying" class="glyphicon glyphicon-play"></span>
+        <span *ngIf="!isPlaying" class="glyphicon glyphicon-pause"></span>
+    </a>
+    <span class="step glyphicon glyphicon-step-forward"></span>
+
+    <div class="currentTime">{{currentTime | time}}</div>
+
+    <progress class="progressbar" value="{{currentTime}}" max="{{fullTime}}"></progress>
+    <div class="fullTime">{{fullTime | time}}</div>
+
+    <span class="step glyphicon glyphicon-volume-up"></span>
+    <p>Currently playing:<br>
+        <strong>{{song.title}}</strong> by <strong>{{song.interpret}}</strong></p>
+</div>

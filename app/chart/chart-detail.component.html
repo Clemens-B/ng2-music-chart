@@ -1,0 +1,58 @@
+<div *ngIf="chart" class="col-md-offset-2 col-md-8 detail-content">
+    <div class="col-md-3 sidebar">
+        <div class="form-group">
+            <span class="glyphicon glyphicon-{{chart.img}}"></span>
+            <label> Image: </label>
+            <select class="form-control" [(ngModel)]="chart.img" class="form-control">
+                <option value="heart">heart</option>
+                <option value="glass">glass</option>
+                <option value="star">star</option>
+                <option value="headphones">headphones</option>
+                <option value="knight">knight</option>
+            </select>
+            <label> Name: </label><input class="form-control" [(ngModel)]="chart.chartName" placeholder="Name"  minlength="3" pattern="[a-zA-Z0-9\s-]+$" required #name="ngModel" name="name"/>
+            <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+                <div [hidden]="!name.errors.required">
+                    - Name is required
+                </div>
+                <div [hidden]="!name.errors.ng-invalid">
+                    - No special characters allowed
+                </div>
+                <div [hidden]="!name.errors.minlength">
+                    - Name mus contain at least 3
+                </div>
+            </div>
+
+            <label> Autor: </label><input class="form-control" [(ngModel)]="chart.autor" placeholder="Autor" pattern="[a-zA-Z0-9\s-]+$" required #autor="ngModel" name="autor"/>
+            <div *ngIf="autor.errors && (autor.dirty || autor.touched)" class="alert alert-danger">
+                <div [hidden]="!autor.errors.required">
+                    - Autor name is required
+                </div>
+                <div [hidden]="!autor.errors.ng-invalid">
+                    - No special characters allowed
+                </div>
+            </div>
+
+
+            <label> Description: </label><input class="form-control" [(ngModel)]="chart.description" placeholder="Description"/>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+
+        <ul class="songs" dnd-sortable-container [sortableData]="chart.songList">
+            <li class="" *ngFor="let song of chart.songList; let i = index"
+                [class.selected]="song === selectedSong" (click)="onSelect(song)"
+                dnd-sortable [sortableIndex]="i">
+                <span class="position">{{i + 1}}</span>
+                <span><strong>{{song.title}}</strong> by <strong>{{song.interpret}}</strong></span>
+                <a (click)="onPlay(song)" class="play glyphicon glyphicon-play-circle"></a>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+        <song-detail [song]="selectedSong" [chartSonglist]="chart.songList"></song-detail>
+
+
+    </div>
+</div>

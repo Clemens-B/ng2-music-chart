@@ -1,0 +1,70 @@
+<div class="col-md-12">
+<div *ngIf="song">
+    <div class="form-group">
+
+        <label> Name: </label><input class="form-control" [(ngModel)]="song.title" placeholder="Chart Name" pattern="[a-zA-Z0-9. ]*" required #name="ngModel" name="name" />
+        <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
+            <div [hidden]="!name.errors.required">
+                - Name is required
+            </div>
+            <div [hidden]="!name.errors.ng-invalid">
+                - No special characters allowed
+            </div>
+        </div>
+
+        <label> Interpret: </label><input class="form-control" [(ngModel)]="song.interpret" placeholder="Interpret" pattern="[a-zA-Z. ]*" required #interpret="ngModel" name="interpret"/>
+        <div *ngIf="interpret.errors && (interpret.dirty || interpret.touched)" class="alert alert-danger">
+                <div [hidden]="!interpret.errors.required">
+                    - Interpret is required
+                </div>
+                <div [hidden]="!interpret.errors.ng-invalid">
+                    - No special characters and numbers allowed
+                </div>
+        </div>
+
+        <label> Album: </label><input class="form-control" [(ngModel)]="song.album" placeholder="Album name" pattern="[a-zA-Z0-9\s-]+$" required #album="ngModel" name="album"/>
+        <div *ngIf="album.errors && (album.dirty || album.touched)" class="alert alert-danger">
+                <div [hidden]="!album.errors.required">
+                    - Album name is required
+                </div>
+                <div [hidden]="!album.errors.ng-invalid">
+                    - No special characters allowed
+                </div>
+        </div>
+
+        <label> Genre: </label><input class="form-control" [(ngModel)]="song.genre" placeholder="Genre" pattern="[a-zA-Z\s]+$" required #genre="ngModel" name="genre" />
+        <div *ngIf="genre.errors && (genre.dirty || genre.touched)" class="alert alert-danger">
+                <div [hidden]="!genre.errors.required">
+                    - Genre is required
+                </div>
+                <div [hidden]="!genre.errors.ng-invalid">
+                    - No special characters or numbers allowed
+                </div>
+        </div>
+
+        <label> Sound length: </label><input class="form-control" [ngModel]="song.soundLength" (ngModelChange)="song.soundLength = $event" placeholder="in seconds" pattern="[0-9][0-9]:[0-9][0-9]" required #soundLength="ngModel" name="soundLength" required minlength="1" maxlength="5"/>
+        <div *ngIf="soundLength.errors && (soundLength.dirty || soundLength.touched)" class="alert alert-danger">
+                <div [hidden]="!soundLength.errors.required">
+                    - Sound length is required
+                </div>
+                <div [hidden]="!soundLength.errors.ng-invalid">
+                    - No characters allowed
+                </div>
+        </div>
+        <div *ngIf="song.soundLength < 0 " class="alert alert-danger">
+            - negative number
+        </div>
+
+
+        <!--<label> Release: </label><input class="form-control" [ngModel]="song.relaseDate" (ngModelChange)="song.relaseDate = $event" placeholder="Release date (dd.mm.yyyy)" type="date" required #release="ngModel" name="release"/>
+        <div *ngIf="release.errors && (release.dirty || release.touched)" class="alert alert-danger">
+            <div [hidden]="!release.errors.required">
+                - Release date is required
+            </div>
+            <div [hidden]="!release.errors.ng-invalid">
+                - No characters allowed
+            </div>
+        </div>-->
+    </div>
+</div>
+</div>

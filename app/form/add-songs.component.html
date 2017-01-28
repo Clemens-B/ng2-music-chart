@@ -1,0 +1,71 @@
+<div class="container-fluid content">
+    <div class="row heading">
+        <h1>Add Songs to the new Chart</h1>
+        <div class="container add-chart-steps">
+            <button class="btn btn-secondary" routerLink="/addchart">Edit Chart</button>
+            <button class="btn btn-secondary" routerLink="/addsong">Add Songs</button>
+        </div>
+    </div>
+    <div class="row detail-section">
+
+        <div class="container chart-info">
+            You are editing Chart
+            <span class="glyphicon glyphicon-{{chart.img}}"></span>
+            <strong>{{chart.chartName}}</strong> by <strong>{{chart.autor}}</strong>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 form-content">
+
+            <div class="col-md-7 sidebar">
+                <form #f="ngForm" [formGroup]="formGroup" (ngSubmit)="onSubmit(f.value)">
+                    <label for="title" class="required">Song Title</label>
+                    <input type="text" id="title" class="form-control" formControlName="title">
+                    <error-messages [control]="formGroup.controls.title" ></error-messages>
+
+                    <label for="interpret" class="required">Interpret</label>
+                    <input type="text" id="interpret" class="form-control" formControlName="interpret">
+                    <error-messages [control]="formGroup.controls.interpret"></error-messages>
+
+                    <label for="album" class="required">Album</label>
+                    <input type="text" id="album" class="form-control" formControlName="album">
+                    <error-messages [control]="formGroup.controls.album"></error-messages>
+
+                    <label for="genre" class="required">Genre</label>
+                    <input type="text" id="genre" class="form-control" formControlName="genre" data-role="tagsinput">
+                    <error-messages [control]="formGroup.controls.genre"></error-messages>
+
+                    <label for="soundLength" class="required">Sound Length</label>
+                    <input type="text" id="soundLength" class="form-control" maxlength="5" formControlName="soundLength">
+                    <error-messages [control]="formGroup.controls.soundLength"></error-messages>
+
+                    <label for="date" class="required">Release Date</label>
+                    <input type="text" id="date" class="form-control" formControlName="relaseDate">
+                    <error-messages [control]="formGroup.controls.relaseDate"></error-messages>
+
+                    <label for="url" class="required">URL</label>
+                    <input type="text" id="url" class="form-control" formControlName="url">
+                    <error-messages [control]="formGroup.controls.url"></error-messages>
+
+                    <p>
+                        <button class="margin-20 btn btn-primary" type="submit" [disabled]="!formGroup.valid">Add Song</button>
+                        <button class="margin-20 btn btn-primary" type="button" routerLink="/dashboard" (click)="addChart(chart)">Finished</button>
+
+                    </p>
+                </form>
+
+            </div>
+
+            <div class="col-md-5">
+                <p>Drag and Drop to Change Position</p>
+                <ul *ngIf="chart.songList" class="songs" dnd-sortable-container [sortableData]="chart.songList">
+                    <li *ngFor="let song of chart.songList; let i = index" dnd-sortable [sortableIndex]="i">
+                        <span class="position">{{i + 1}}</span>
+                        <span>{{song.title}}</span>
+                        <a (click)="deleteSong(song)" class="play glyphicon glyphicon-remove"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>

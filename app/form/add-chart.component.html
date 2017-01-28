@@ -1,0 +1,60 @@
+<div class="container-fluid content">
+    <div class="row heading">
+        <h1>Add a new Chart</h1>
+        <div class="container add-chart-steps">
+            <button class="btn btn-secondary" routerLink="/addchart">Edit Chart</button>
+            <button class="btn btn-secondary" routerLink="/addsong" [disabled]="!formGroup.valid">Add Songs</button>
+        </div>
+    </div>
+    <div class="row detail-section">
+        <div class="col-md-8 col-md-offset-2 form-content">
+
+            <div class="col-md-9 sidebar">
+
+                <form #f="ngForm" [formGroup]="formGroup">
+                    <label for="name" class="required">Name</label>
+                    <input type="text" id="name" class="form-control" formControlName="chartName">
+                    <error-messages [control]="formGroup.controls.chartName"></error-messages>
+
+                    <label for="img" class="required">Img</label>
+                    <select id="img" class="form-control" formControlName="img">
+                        <option *ngFor="let i of images" [value]="i">{{i}}</option>
+                    </select>
+                    <error-messages [control]="formGroup.controls.img"></error-messages>
+
+                    <label for="date" class="required">Date of Creation</label>
+                    <input type="date" id="date" class="form-control" formControlName="createDate">
+                    <error-messages [control]="formGroup.controls.createDate"></error-messages>
+
+                    <label for="autor" class="required">Autor</label>
+                    <input type="text" id="autor" class="form-control" formControlName="autor">
+                    <error-messages [control]="formGroup.controls.autor"></error-messages>
+
+                    <label for="des" class="required">Description</label>
+                    <textarea type="text" id="des" class="form-control" formControlName="description"></textarea>
+                    <error-messages [control]="formGroup.controls.description"></error-messages>
+
+                    <p>
+                        <button (click)="onSubmit()" class="margin-20 btn btn-primary" type="button" [disabled]="!formGroup.valid" routerLink="/addsong">Submit</button>
+                    </p>
+                </form>
+
+
+            </div>
+
+            <div class="col-md-3 overview">
+                <div style="text-align: center">
+                    <h5 class="title">Overview</h5>
+
+                    <span class="glyphicon glyphicon-{{f.value.img}}"></span>
+                </div>
+                <p><strong>Name: </strong>{{f.value.chartName}}</p>
+                <p><strong>Autor: </strong>{{f.value.autor}}</p>
+                <p><strong>Description: </strong>{{f.value.description}}</p>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
